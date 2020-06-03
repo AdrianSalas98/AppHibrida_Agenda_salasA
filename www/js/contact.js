@@ -1,4 +1,9 @@
+
 class Contact {
+
+    constructor(){
+        this.uid = uid();
+    }
    
     getFirstName() {
         return this.first_name;
