@@ -16,8 +16,22 @@
     </head>
     <body>
         <div>
-          <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
-          <div id="modal1" class="modal">
+          <a class="waves-effect waves-light btn modal-trigger" href="#New_Contact">New Contact</a>
+          <table>
+            <thead>
+              <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Telephone</th>
+                  <th>Email</th>
+              </tr>
+            </thead>
+    
+            <tbody>
+
+            </tbody>
+          </table>
+          <div id="New_Contact" class="modal">
             <div class="modal-content">
                 <div class="row">
                     <form class="col s12" onsubmit = "receiveData(event)">
@@ -45,7 +59,7 @@
                           <label for="email">Email</label>
                         </div>
                       </div>
-                      <input type="submit" value="saveData">
+                      <input type="submit" value="Save Data">
                     </form>
                   </div>
             </div>
@@ -54,7 +68,8 @@
     </body>
     <script type="text/javascript">
         $(document).ready(function(){
-          $('#modal1').modal();
+          $('#New_Contact').modal();
+          getContacts();
         });
 
         function receiveData(event){
@@ -70,6 +85,33 @@
 
         function saveLocalStorage(contact){
             window.localStorage.setItem(contact.getUid(), JSON.stringify(contact));
+        }
+
+        function getContacts(){
+            for(var i = 0; i < window.localStorage.length; i++){
+               var contact = JSON.parse(localStorage.getItem(localStorage.key(i)));
+               printContact(contact);
+            }
+        }
+
+        function printContact(contact){
+           var tr = document.createElement("tr");
+           var firstname = document.createElement("td");
+           var lastname = document.createElement("td");
+           var telephone = document.createElement("td");
+           var email = document.createElement("td");
+
+           firstname.innerText = contact.first_name;
+           lastname.innerText = contact.last_name;
+           telephone.innerText = contact.telephone;
+           email.innerText = contact.email;
+
+           tr.appendChild(firstname);
+           tr.appendChild(lastname);
+           tr.appendChild(telephone);
+           tr.appendChild(email);
+
+           $("tbody")[0].appendChild(tr);
         }
       </script>
 </html>
