@@ -100,18 +100,44 @@
            var lastname = document.createElement("td");
            var telephone = document.createElement("td");
            var email = document.createElement("td");
-
+           var tdbuttons = document.createElement("td");
+           var buttonedit = document.createElement("button");
+           var buttondelete = document.createElement("button");
+           
            firstname.innerText = contact.first_name;
            lastname.innerText = contact.last_name;
            telephone.innerText = contact.telephone;
            email.innerText = contact.email;
+           buttonedit.innerText = "Edit Contact";
+           buttondelete.innerText = "Delete Contact";
+
+            buttonedit.addEventListener("click", function(){
+                editContact(contact);
+            });
+
+            buttondelete.addEventListener("click", function(){
+                deleteContact(contact);
+            });
+
+           tdbuttons.appendChild(buttonedit);
+           tdbuttons.appendChild(buttondelete);
 
            tr.appendChild(firstname);
            tr.appendChild(lastname);
            tr.appendChild(telephone);
            tr.appendChild(email);
+           tr.appendChild(tdbuttons);
 
            $("tbody")[0].appendChild(tr);
         }
+
+        function deleteContact(contact){
+            console.log(contact);
+        }
+
+        function editContact(contact){
+            console.log(contact);
+        }
+
       </script>
 </html>
