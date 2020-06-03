@@ -7,10 +7,11 @@
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
         <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="js/contact.js"></script>
         <script type="text/javascript" src="js/materialize.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-        <title>Hello World</title>
+        <title>Agenda</title>
     </head>
     <body>
         <div>
@@ -18,7 +19,7 @@
           <div id="modal1" class="modal">
             <div class="modal-content">
                 <div class="row">
-                    <form class="col s12">
+                    <form class="col s12" onsubmit = "receiveData(event)">
                       <div class="row">
                         <div class="input-field col s6">
                           <input placeholder="Placeholder" id="first_name" type="text" class="validate">
@@ -43,11 +44,9 @@
                           <label for="email">Email</label>
                         </div>
                       </div>
+                      <input type="submit" value="saveData">
                     </form>
                   </div>
-            </div>
-            <div class="modal-footer">
-              <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
             </div>
           </div>
         </div>
@@ -56,5 +55,16 @@
         $(document).ready(function(){
           $('#modal1').modal();
         });
+
+        function receiveData(event){
+            event.preventDefault();
+            var contact = new Contact();
+            contact.setFirstName($('#first_name').val());
+            contact.setLastName($('#last_name').val());
+            contact.setEmail($('#email').val());
+            contact.setTelephone($('#telephone').val());
+
+            console.log(contact);
+        }
       </script>
 </html>
