@@ -34,7 +34,7 @@
           <div id="New_Contact" class="modal">
             <div class="modal-content">
                 <div class="row">
-                    <form class="col s12" onsubmit = "receiveData(event)">
+                    <form class="col s12">
                       <div class="row">
                         <div class="input-field col s6">
                           <input placeholder="Placeholder" id="first_name" type="text" class="validate">
@@ -59,7 +59,7 @@
                           <label for="email">Email</label>
                         </div>
                       </div>
-                      <input type="submit" value="Save Data">
+                      <button id="submit" onclick="receiveData(event)">Save Data</button>
                     </form>
                   </div>
             </div>
@@ -81,6 +81,8 @@
             contact.setTelephone($('#telephone').val());
 
             saveLocalStorage(contact);
+
+            window.location.reload();
         }
 
         function saveLocalStorage(contact){
@@ -101,7 +103,12 @@
            var telephone = document.createElement("td");
            var email = document.createElement("td");
            var tdbuttons = document.createElement("td");
-           var buttonedit = document.createElement("button");
+           var buttonedit = document.createElement("a");
+           buttonedit.classList.add("waves-effect");
+           buttonedit.classList.add("waves-light");
+           buttonedit.classList.add("btn");
+           buttonedit.classList.add("modal-trigger");
+           
            var buttondelete = document.createElement("button");
            
            firstname.innerText = contact.first_name;
@@ -110,6 +117,8 @@
            email.innerText = contact.email;
            buttonedit.innerText = "Edit Contact";
            buttondelete.innerText = "Delete Contact";
+
+           buttonedit.setAttribute("href","#New_Contact");
 
             buttonedit.addEventListener("click", function(){
                 editContact(contact);
@@ -132,11 +141,45 @@
         }
 
         function deleteContact(contact){
-            console.log(contact);
+            window.localStorage.removeItem(contact.uid);
+            window.location.reload();
         }
 
         function editContact(contact){
-            console.log(contact);
+           $('#first_name').val(contact.first_name);
+           $('#last_name').val(contact.last_name);
+           $('#telephone').val(contact.telephone);
+           $('#email').val(contact.email);
+
+            $('#submit').css("display", "none");
+
+            var buttonupdate = document.createElement("button");
+
+            buttonupdate.innerText = "Update Contact";
+
+            buttonupdate.addEventListener("click", function(){
+                updateContact(contact.uid);
+            });
+
+            $("form")[0].appendChild(buttonupdate);
+
+           $('#New_Contact').modal();
+        }
+
+        function updateContact(uid){
+            var contact = new Contact();
+            contact.setFirstName($('#first_name').val());
+            contact.setLastName($('#last_name').val());
+            contact.setEmail($('#email').val());
+            contact.setTelephone($('#telephone').val());
+
+            updateLocalStorage(uid, contact);
+
+            window.location.reload();
+        }
+
+        function updateLocalStorage(uid, contact){
+            window.localStorage.setItem(uid, JSON.stringify(contact));
         }
 
       </script>
