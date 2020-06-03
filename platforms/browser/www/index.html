@@ -65,7 +65,11 @@
             contact.setEmail($('#email').val());
             contact.setTelephone($('#telephone').val());
 
-            console.log(contact);
+            saveLocalStorage(contact);
+        }
+
+        function saveLocalStorage(contact){
+            window.localStorage.setItem(contact.getUid(), JSON.stringify(contact));
         }
       </script>
 </html>

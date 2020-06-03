@@ -36,4 +36,9 @@ class Contact {
     setTelephone(telephone) {
         this.telephone = telephone;
     }
+
+    getUid() {
+        return this.uid;
+    }
+  
 }
